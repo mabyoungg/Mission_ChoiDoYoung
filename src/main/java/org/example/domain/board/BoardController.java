@@ -51,8 +51,11 @@ public class BoardController {
             }
         }
 
-        list.remove(index);
-
-        System.out.printf("%d번 명언이 삭제되었습니다. \n", id);
+        try {
+            list.remove(index);
+            System.out.printf("%d번 명언이 삭제되었습니다. \n", id);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.printf("%d번 명언이 존재하지 않습니다. \n", id);
+        }
     }
 }

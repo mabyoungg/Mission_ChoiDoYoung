@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.domain.board.Board;
 import org.example.domain.board.BoardController;
 
 import java.util.Scanner;
@@ -21,6 +20,8 @@ public class App {
                 break;
             } else if (input.equals("등록")) {
                 boardController.create();
+            } else if (input.equals("목록")) {
+                boardController.list();
             }
         }
     }

@@ -28,6 +28,8 @@ public class App {
                 boardController.list();
             } else if (action.equals("삭제")) {
                 boardController.delete(inputRequest);
+            } else if (action.equals("수정")) {
+                boardController.update(inputRequest);
             }
         }
     }

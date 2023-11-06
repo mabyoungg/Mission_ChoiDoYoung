@@ -43,13 +43,7 @@ public class BoardController {
 
     public void delete(InputRequest inputRequest) {
         int id = inputRequest.getIndexByParam("id",0);
-        int index = -1;
-
-        for (int i = 0; i < list.size(); i++){
-            if (list.get(i).getCount() == id){
-                index = i;
-            }
-        }
+        int index = getIndexByList(id);
 
         try {
             list.remove(index);
@@ -57,5 +51,36 @@ public class BoardController {
         } catch (IndexOutOfBoundsException e) {
             System.out.printf("%d번 명언이 존재하지 않습니다. \n", id);
         }
+    }
+
+    public void update(InputRequest inputRequest) {
+        int id = inputRequest.getIndexByParam("id",0);
+        int index = getIndexByList(id);
+
+        try {
+            System.out.printf("명언(기존) : %s \n", list.get(index).getWord());
+            System.out.print("명언: ");
+            String word = sc.nextLine();
+            System.out.printf("작가(기존) : %s \n", list.get(index).getAuthor());
+            System.out.print("작가: ");
+            String author = sc.nextLine();
+
+            Board board = new Board(id, word, author);
+
+            list.set(index, board);
+
+        } catch (IndexOutOfBoundsException e) {
+            System.out.printf("%d번 명언이 존재하지 않습니다. \n", id);
+        }
+
+    }
+
+    public int getIndexByList(int id) {
+        for (int i = 0; i < list.size(); i++){
+            if (list.get(i).getCount() == id){
+                return i;
+            }
+        }
+        return -1;
     }
 }

@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.domain.board.BoardController;
+import org.example.global.util.InputRequest;
 
 import java.util.Scanner;
 
@@ -15,13 +16,18 @@ public class App {
         while (true) {
             System.out.print("명령) ");
             String input = sc.nextLine();
+            InputRequest inputRequest = new InputRequest(input);
 
-            if (input.equals("종료")){
+            String action = inputRequest.getAction();
+
+            if (action.equals("종료")){
                 break;
-            } else if (input.equals("등록")) {
+            } else if (action.equals("등록")) {
                 boardController.create();
-            } else if (input.equals("목록")) {
+            } else if (action.equals("목록")) {
                 boardController.list();
+            } else if (action.equals("삭제")) {
+                boardController.delete(inputRequest);
             }
         }
     }

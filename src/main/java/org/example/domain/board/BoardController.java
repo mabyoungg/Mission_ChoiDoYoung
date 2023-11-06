@@ -1,5 +1,7 @@
 package org.example.domain.board;
 
+import org.example.global.util.InputRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -37,6 +39,20 @@ public class BoardController {
         for (int i = list.size() - 1; i >= 0; i--){
             System.out.printf("%d / %s / %s \n", list.get(i).getCount(),list.get(i).getAuthor(),list.get(i).getWord());
         }
+    }
 
+    public void delete(InputRequest inputRequest) {
+        int id = inputRequest.getIndexByParam("id",0);
+        int index = -1;
+
+        for (int i = 0; i < list.size(); i++){
+            if (list.get(i).getCount() == id){
+                index = i;
+            }
+        }
+
+        list.remove(index);
+
+        System.out.printf("%d번 명언이 삭제되었습니다. \n", id);
     }
 }

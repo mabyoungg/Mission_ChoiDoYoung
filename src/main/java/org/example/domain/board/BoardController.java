@@ -2,8 +2,10 @@ package org.example.domain.board;
 
 import org.example.global.util.InputRequest;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class BoardController {
@@ -83,4 +85,27 @@ public class BoardController {
         }
         return -1;
     }
+
+    public void save() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("data.txt"))) {
+            oos.writeObject(list);
+
+            System.out.println("데이터를 파일에 저장했습니다.");
+        } catch (Exception e) {
+            System.out.println("파일 저장 중 오류가 발생했습니다: " + e.getMessage());
+        }
+    }
+
+    public void load() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data.txt"))) {
+            list = (List<Board>) ois.readObject();
+            count = list.get(list.size() - 1).getCount() + 1;
+
+            System.out.println("데이터를 파일에서 불러왔습니다.");
+        } catch (Exception e) {
+            System.out.println("파일 불러오기 중 오류가 발생했습니다: " + e.getMessage());
+        }
+
+    }
+
 }

@@ -3,6 +3,7 @@ package org.example;
 import org.example.domain.board.BoardController;
 import org.example.global.util.InputRequest;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class App {
@@ -10,6 +11,7 @@ public class App {
         Scanner sc = new Scanner(System.in);
 
         BoardController boardController = new BoardController(sc);
+        boardController.load();
 
         System.out.println("== 명언 앱 ==");
 
@@ -21,7 +23,8 @@ public class App {
             String action = inputRequest.getAction();
 
             if (action.equals("종료")){
-                break;
+                boardController.save();
+                return;
             } else if (action.equals("등록")) {
                 boardController.create();
             } else if (action.equals("목록")) {

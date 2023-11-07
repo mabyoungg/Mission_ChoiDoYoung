@@ -1,11 +1,11 @@
 package org.example.domain.board;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.global.util.InputRequest;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class BoardController {
@@ -104,6 +104,48 @@ public class BoardController {
             System.out.println("데이터를 파일에서 불러왔습니다.");
         } catch (Exception e) {
             System.out.println("파일 불러오기 중 오류가 발생했습니다: " + e.getMessage());
+        }
+    }
+
+    public void jsonBuild() {
+        StringBuilder jsonString = new StringBuilder("[");
+
+        // 클래스에 정의된 변수 목록 가져오기
+//        Field[] fields = list.getClass().getDeclaredFields();
+//        String a = fields[0].getName();
+
+        for (Board board : list) {
+            jsonString.append("{");
+            jsonString.append("\"id\":").append(board.getCount()).append(",");
+            jsonString.append("\"content\":\"").append(board.getWord()).append("\",");
+            jsonString.append("\"author\":\"").append(board.getAuthor()).append("\"");
+            jsonString.append("},");
+        }
+
+        if (list.size() > 0) {
+            jsonString.deleteCharAt(jsonString.length() - 1);
+        }
+
+        jsonString.append("]");
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("data.json"))) {
+            writer.write(jsonString.toString());
+            System.out.println("data.json 파일의 내용이 갱신되었습니다.");
+        } catch (IOException e) {
+            System.out.println("파일 저장 중 오류가 발생했습니다: " + e.getMessage());
+        }
+
+    }
+
+    // jackson 라이브러리 사용
+    public void jsonBuildToJackson() {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            objectMapper.writeValue(new File("data2.json"), list);
+            System.out.println("data.json 파일의 내용이 갱신되었습니다.");
+        } catch (IOException e) {
+            System.out.println("파일 저장 중 오류가 발생했습니다: " + e.getMessage());
         }
 
     }

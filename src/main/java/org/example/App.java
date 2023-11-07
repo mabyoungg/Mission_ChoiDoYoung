@@ -33,7 +33,11 @@ public class App {
                 boardController.delete(inputRequest);
             } else if (action.equals("수정")) {
                 boardController.update(inputRequest);
-            }
+            } else if (action.equals("빌드")) {
+                boardController.jsonBuild();
+            } else if (action.equals("빌드2")) {
+            boardController.jsonBuildToJackson();
+        }
         }
     }
 }
